@@ -1,4 +1,5 @@
 #include <boost/asio.hpp>
+#include <map>
 #include <optional>
 #include <string>
 #include <vector>
@@ -6,6 +7,34 @@
 class Torrent {
   unsigned int peers = 0;
   unsigned int pieces = 0;
+};
+
+class BEncodeValue {
+  virtual void parse(std::string) = 0;
+};
+
+class BEncodeString : public BEncodeValue {
+  std::string contents;
+
+  void parse(std::string) override;
+};
+
+class BEncodeInteger : public BEncodeValue {
+  long number = 0;
+
+  void parse(std::string) override;
+};
+
+class BEncodeList : public BEncodeValue {
+  std::vector<BEncodeValue> elements;
+
+  void parse(std::string) override;
+};
+
+class BEncodeDict : public BEncodeValue {
+  std::map<BEncodeValue, BEncodeValue> contents;
+
+  void parse(std::string) override;
 };
 
 class InfoFile {
