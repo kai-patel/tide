@@ -6,6 +6,6 @@ if exist build\ (
 )
 
 mkdir build
-cmake -S . -B build -G"Unix Makefiles" -DBUILD_TESTS=1
+cmake -S . -B build -G"Unix Makefiles" -DBUILD_TESTS=1 -DBOOST_ROOT="C:/Program Files/boost/boost_1_82_0"
 cmake --build build
 
