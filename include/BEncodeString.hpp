@@ -1,7 +1,7 @@
+#pragma once
+
 #include <BEncodeValue.hpp>
 
-class BEncodeString : public BEncodeValue {
+struct BEncodeString : public BEncodeValue {
   std::string contents;
-
-  void parse(std::string) override;
 };

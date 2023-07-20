@@ -39,9 +39,15 @@ if(BUILD_TESTS)
   set(gtest_force_shared_crt
       ON
       CACHE BOOL "" FORCE)
+
+  if(NOT googletest_POPULATED)
+    FetchContent_Populate(googletest)
+    add_subdirectory(${googletest_SOURCE_DIR} ${googletest_BINARY_DIR})
+  endif()
+
   FetchContent_MakeAvailable(googletest)
   enable_testing()
-endif()
+endif(BUILD_TESTS)
 
 # Doxygen
 find_package(Doxygen)

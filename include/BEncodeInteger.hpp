@@ -1,7 +1,13 @@
+#pragma once
+
 #include <BEncodeValue.hpp>
+#include <string>
 
-class BEncodeInteger : public BEncodeValue {
+namespace tide {
+
+struct BEncodeInteger : public BEncodeValue {
   long number = 0;
-
-  void parse(std::string) override;
+  void parse(std::string);
 };
+
+} // namespace tide

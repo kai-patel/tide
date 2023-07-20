@@ -1,8 +1,8 @@
+#pragma once
+
 #include <BEncodeValue.hpp>
 #include <map>
 
-class BEncodeDict : public BEncodeValue {
+struct BEncodeDict : public BEncodeValue {
   std::map<BEncodeValue, BEncodeValue> contents;
-
-  void parse(std::string) override;
 };

@@ -1,6 +1,7 @@
 # Find header files
 
 file(GLOB HEADER_LIST CONFIGURE_DEPENDS "${PROJECT_SOURCE_DIR}/include/*.hpp")
+file(GLOB SOURCE_LIST CONFIGURE_DEPENDS "${PROJECT_SOURCE_DIR}/src/*.cpp")
 # set(HEADER_LIST "${PROJECT_SOURCE_DIR}/include/tide.hpp")
 
 message("Header list: ${HEADER_LIST}")
@@ -25,4 +26,10 @@ endmacro()
 
 # Use add_auto_lib() and add_executable() below here
 
-add_auto_lib(tide tide.cpp ../include Boost::boost)
+# add_auto_lib(tide tide.cpp BEncodeInteger.cpp ../include Boost::boost)
+
+add_library(tide ${SOURCE_LIST})
+
+target_include_directories(tide PUBLIC ../include)
+
+target_link_libraries(tide PRIVATE Boost::boost)

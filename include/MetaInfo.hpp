@@ -1,3 +1,5 @@
+#pragma once
+
 #include <InfoDict.hpp>
 #include <chrono>
 

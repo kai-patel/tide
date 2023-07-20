@@ -1,10 +1,3 @@
-#include <boost/asio.hpp>
+#pragma once
 
-class Torrent {
-  unsigned int peers = 0;
-  unsigned int pieces = 0;
-};
-
-
-
-
+#include <BEncodeInteger.hpp>

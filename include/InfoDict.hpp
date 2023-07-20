@@ -1,3 +1,5 @@
+#pragma once
+
 #include <InfoFile.hpp>
 
 class InfoDict {

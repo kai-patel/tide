@@ -1,8 +1,8 @@
+#pragma once
+
 #include <BEncodeValue.hpp>
 #include <vector>
 
-class BEncodeList : public BEncodeValue {
+struct BEncodeList : public BEncodeValue {
   std::vector<BEncodeValue> elements;
-
-  void parse(std::string) override;
 };
