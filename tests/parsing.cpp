@@ -10,3 +10,13 @@ TEST(Parsing, Integer) {
 
   ASSERT_EQ(42, result.number);
 }
+
+TEST(Parsing, String) {
+  std::string input = "4:spam";
+
+  tide::BEncodeString result;
+
+  result.parse(input);
+
+  ASSERT_EQ("spam", result.contents);
+}
