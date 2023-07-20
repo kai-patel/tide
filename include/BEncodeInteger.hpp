@@ -7,7 +7,7 @@ namespace tide {
 
 struct BEncodeInteger : public BEncodeValue {
   long number = 0;
-  void parse(std::string);
+  bool parse(std::string) override;
 };
 
 } // namespace tide

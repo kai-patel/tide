@@ -2,4 +2,6 @@
 
 #include <string>
 
-struct BEncodeValue {};
+struct BEncodeValue {
+  virtual bool parse(std::string) = 0;
+};

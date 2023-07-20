@@ -5,4 +5,6 @@
 
 struct BEncodeDict : public BEncodeValue {
   std::map<BEncodeValue, BEncodeValue> contents;
+
+  bool parse(std::string) override;
 };

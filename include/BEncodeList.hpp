@@ -5,4 +5,5 @@
 
 struct BEncodeList : public BEncodeValue {
   std::vector<BEncodeValue> elements;
+  bool parse(std::string) override;
 };
