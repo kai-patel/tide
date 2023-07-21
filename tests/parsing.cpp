@@ -1,3 +1,4 @@
+#include <boost/any.hpp>
 #include <gtest/gtest.h>
 #include <tide.hpp>
 
@@ -19,4 +20,12 @@ TEST(Parsing, String) {
   result.parse(input);
 
   ASSERT_EQ("spam", std::get<std::string>(result.value));
+}
+
+TEST(Parsing, List) {
+  std::string input = "l4:spami42ee";
+
+  tide::BEncodeValue result;
+
+  bool is_parsed = result.parse(input);
 }
