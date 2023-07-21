@@ -4,19 +4,19 @@
 TEST(Parsing, Integer) {
   std::string input = "i42e";
 
-  tide::BEncodeInteger result;
+  tide::BEncodeValue result;
 
   result.parse(input);
 
-  ASSERT_EQ(42, result.number);
+  ASSERT_EQ(42, std::get<long>(result.value));
 }
 
 TEST(Parsing, String) {
   std::string input = "4:spam";
 
-  tide::BEncodeString result;
+  tide::BEncodeValue result;
 
   result.parse(input);
 
-  ASSERT_EQ("spam", result.contents);
+  ASSERT_EQ("spam", std::get<std::string>(result.value));
 }

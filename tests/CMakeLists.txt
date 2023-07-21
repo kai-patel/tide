@@ -12,4 +12,4 @@ include(GoogleTest)
 
 # Use add_google_test() below here
 
-add_google_test(parsing tide parsing.cpp)
+add_google_test(parsing "tide;Boost::boost" parsing.cpp)
