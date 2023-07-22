@@ -1,5 +1,6 @@
 #include <BEncodeValue.hpp>
 
+#include <boost/fusion/adapted/std_pair.hpp>
 #include <boost/fusion/adapted/struct/adapt_struct.hpp>
 #include <boost/phoenix/core.hpp>
 #include <boost/phoenix/operator.hpp>
@@ -13,6 +14,8 @@ BOOST_FUSION_ADAPT_STRUCT(tide::BEncodeValue, (tide::any_type, value));
 BOOST_FUSION_ADAPT_STRUCT(tide::BEncodeList,
                           (std::vector<tide::ListContents>, contents));
 
+BOOST_FUSION_ADAPT_STRUCT(tide::BEncodeDict, (auto, dict));
+
 namespace tide {
 
 template <typename I>
@@ -21,7 +24,8 @@ struct dict_parser : boost::spirit::qi::grammar<I, BEncodeValue()> {
   boost::spirit::qi::rule<I, BEncodeInteger()> integer;
   boost::spirit::qi::rule<I, BEncodeString()> string;
   boost::spirit::qi::rule<I, BEncodeList()> list;
-  /* boost::spirit::qi::rule<I, std::map<std::string, boost::any>()> dict; */
+  boost::spirit::qi::rule<I, std::pair<DictKey, DictValue>()> pair;
+  boost::spirit::qi::rule<I, BEncodeDict()> dict;
 
   dict_parser() : dict_parser::base_type(start) {
     namespace qi = boost::spirit::qi;
@@ -43,8 +47,9 @@ struct dict_parser : boost::spirit::qi::grammar<I, BEncodeValue()> {
 
     list %= ('l' >> *(integer | string | list) >> 'e');
 
-    // TODO: Parse attribute as std::map instead of std::vector
-    /* dict %= ('d' >> *(string >> (integer | string | list | dict)) >> 'e'); */
+    pair %= (string >> (integer | string | list | dict));
+
+    dict %= ('d' >> *(pair) >> 'e');
 
     start %= integer | string | list;
   }

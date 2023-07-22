@@ -12,28 +12,26 @@ typedef long BEncodeInteger;
 typedef std::string BEncodeString;
 
 struct BEncodeList;
+struct BEncodeDict;
 
 typedef std::variant<BEncodeInteger, BEncodeString,
-                     boost::recursive_wrapper<BEncodeList>>
+                     boost::recursive_wrapper<BEncodeList>, BEncodeDict>
     ListContents;
 
 struct BEncodeList {
   std::vector<ListContents> contents;
 };
 
-struct BEncodeDict;
-
+typedef BEncodeString DictKey;
 typedef std::variant<BEncodeInteger, BEncodeString, BEncodeList,
                      boost::recursive_wrapper<BEncodeDict>>
     DictValue;
 
-typedef BEncodeString DictKey;
-
 struct BEncodeDict {
-  std::map<DictKey, DictValue> contents;
+  std::map<DictKey, DictValue> dict;
 };
 
-typedef std::variant<BEncodeInteger, BEncodeString, BEncodeList> any_type;
+typedef std::variant<BEncodeInteger, BEncodeString, BEncodeList, BEncodeDict> any_type;
 
 struct BEncodeValue {
   any_type value;
