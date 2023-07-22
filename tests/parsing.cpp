@@ -62,6 +62,10 @@ TEST(Parsing, ListofLists) {
   EXPECT_EQ(101, std::get<tide::BEncodeInteger>(actual[2]));
 }
 
+TEST(Parsing, ListofDict) {
+  // TODO
+}
+
 TEST(Parsing, Dictionary) {
   std::string input = "d3:bar4:spam3:fooi42ee";
 
@@ -75,4 +79,12 @@ TEST(Parsing, Dictionary) {
 
   EXPECT_EQ("spam", std::get<tide::BEncodeString>(actual["bar"]));
   EXPECT_EQ(42, std::get<tide::BEncodeInteger>(actual["foo"]));
+}
+
+TEST(Parsing, DictofDict) {
+  // TODO
+}
+
+TEST(Parsing, DictofList) {
+  // TODO
 }
