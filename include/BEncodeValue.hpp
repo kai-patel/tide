@@ -21,8 +21,19 @@ struct BEncodeList {
   std::vector<ListContents> contents;
 };
 
-typedef std::variant<BEncodeInteger, BEncodeString, BEncodeList>
-    any_type;
+struct BEncodeDict;
+
+typedef std::variant<BEncodeInteger, BEncodeString, BEncodeList,
+                     boost::recursive_wrapper<BEncodeDict>>
+    DictValue;
+
+typedef BEncodeString DictKey;
+
+struct BEncodeDict {
+  std::map<DictKey, DictValue> contents;
+};
+
+typedef std::variant<BEncodeInteger, BEncodeString, BEncodeList> any_type;
 
 struct BEncodeValue {
   any_type value;
