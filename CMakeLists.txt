@@ -25,6 +25,10 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 # Declare options
 option(BUILD_TESTS "Enable/disable test building" ON)
 
+# Clang-Tidy
+find_program(CLANG_TIDY_EXE NAMES "clang-tidy")
+set(CLANG_TIDY_COMMAND ${CLANG_TIDY_EXE} "--checks=-*,modernize-*")
+
 # Find packages
 
 # Google Test
