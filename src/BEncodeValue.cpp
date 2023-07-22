@@ -10,15 +10,17 @@
 #include <vector>
 
 BOOST_FUSION_ADAPT_STRUCT(tide::BEncodeValue, (tide::any_type, value));
+BOOST_FUSION_ADAPT_STRUCT(tide::BEncodeList,
+                          (std::vector<tide::ListContents>, contents));
 
 namespace tide {
 
 template <typename I>
 struct dict_parser : boost::spirit::qi::grammar<I, BEncodeValue()> {
   boost::spirit::qi::rule<I, BEncodeValue()> start;
-  boost::spirit::qi::rule<I, long()> integer;
-  boost::spirit::qi::rule<I, std::string()> string;
-  boost::spirit::qi::rule<I, std::vector<boost::any>()> list;
+  boost::spirit::qi::rule<I, BEncodeInteger()> integer;
+  boost::spirit::qi::rule<I, BEncodeString()> string;
+  boost::spirit::qi::rule<I, BEncodeList()> list;
   /* boost::spirit::qi::rule<I, std::map<std::string, boost::any>()> dict; */
 
   dict_parser() : dict_parser::base_type(start) {
