@@ -8,7 +8,9 @@ TEST(Parsing, Integer) {
 
   tide::BEncodeValue result;
 
-  result.parse(input);
+  bool is_parsed = result.parse(input);
+
+  ASSERT_EQ(true, is_parsed);
 
   ASSERT_EQ(42, std::get<tide::BEncodeInteger>(result.value));
 }
@@ -18,7 +20,9 @@ TEST(Parsing, String) {
 
   tide::BEncodeValue result;
 
-  result.parse(input);
+  bool is_parsed = result.parse(input);
+
+  ASSERT_EQ(true, is_parsed);
 
   ASSERT_EQ("spam", std::get<tide::BEncodeString>(result.value));
 }
