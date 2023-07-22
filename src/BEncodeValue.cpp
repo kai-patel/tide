@@ -27,31 +27,33 @@ struct dict_parser : boost::spirit::qi::grammar<I, BEncodeValue()> {
   boost::spirit::qi::rule<I, std::pair<DictKey, DictValue>()> pair;
   boost::spirit::qi::rule<I, BEncodeDict()> dict;
 
+  int length;
+
   dict_parser() : dict_parser::base_type(start) {
     namespace qi = boost::spirit::qi;
     namespace ascii = boost::spirit::ascii;
     using ascii::char_;
     using boost::phoenix::ref;
     using qi::_1;
+    using qi::byte_;
+    using qi::inf;
+    using qi::int_;
     using qi::long_;
     using qi::omit;
     using qi::repeat;
-    using qi::ulong_;
 
     integer %= ('i' >> long_ >> 'e');
 
-    unsigned long length;
-
     string %=
-        (omit[ulong_[ref(length) = _1] >> ':'] >> repeat(ref(length))[char_]);
+        (omit[(int_[ref(length) = _1] >> ':')] >> repeat(ref(length))[byte_]);
 
-    list %= ('l' >> *(integer | string | list) >> 'e');
+    list %= ('l' >> *(string | integer | list) >> 'e');
 
-    pair %= (string >> (integer | string | list | dict));
+    pair = (string >> (string | integer | list | dict));
 
     dict %= ('d' >> *(pair) >> 'e');
 
-    start %= integer | string | list;
+    start %= string | integer | list | dict;
   }
 };
 
@@ -63,6 +65,8 @@ bool BEncodeValue::parse(std::string input) {
       first, last, dict_parser<std::string::const_iterator>(), *this);
 
   if (result == false || first != last) {
+    std::string rest(first, last);
+    std::cerr << "Failed to parse at: <" << rest << ">" << std::endl;
     return false;
   }
 
