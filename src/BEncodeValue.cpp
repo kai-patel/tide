@@ -47,7 +47,7 @@ struct dict_parser : boost::spirit::qi::grammar<I, BEncodeValue()> {
     string %=
         (omit[(int_[ref(length) = _1] >> ':')] >> repeat(ref(length))[byte_]);
 
-    list %= ('l' >> *(string | integer | list) >> 'e');
+    list %= ('l' >> *(string | integer | list | dict) >> 'e');
 
     pair = (string >> (string | integer | list | dict));
 
