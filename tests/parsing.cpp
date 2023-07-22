@@ -9,7 +9,7 @@ TEST(Parsing, Integer) {
 
   result.parse(input);
 
-  ASSERT_EQ(42, std::get<long>(result.value));
+  ASSERT_EQ(42, std::get<tide::BEncodeInteger>(result.value));
 }
 
 TEST(Parsing, String) {
@@ -19,7 +19,7 @@ TEST(Parsing, String) {
 
   result.parse(input);
 
-  ASSERT_EQ("spam", std::get<std::string>(result.value));
+  ASSERT_EQ("spam", std::get<tide::BEncodeString>(result.value));
 }
 
 TEST(Parsing, List) {
@@ -28,4 +28,11 @@ TEST(Parsing, List) {
   tide::BEncodeValue result;
 
   bool is_parsed = result.parse(input);
+
+  ASSERT_EQ(true, is_parsed);
+
+  auto actual = std::get<tide::BEncodeList>(result.value).contents;
+
+  EXPECT_EQ("spam", std::get<tide::BEncodeString>(actual[0]));
+  EXPECT_EQ(42, std::get<tide::BEncodeInteger>(actual[1]));
 }
