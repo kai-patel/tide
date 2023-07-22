@@ -10,7 +10,7 @@ _Torrenting_
   - [x] Integers
   - [x] Strings
   - [x] Lists
-  - [ ] Dictionaries
+  - [x] Dictionaries
 - [ ] BitTorrent Protocol Implementation
 - [ ] Command-line Client
 - [ ] GUI Client
