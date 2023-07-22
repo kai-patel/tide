@@ -37,6 +37,8 @@ struct BEncodeValue {
   any_type value;
 
   bool parse(std::string);
+
+  // TODO Add methods to easily get each type of value from variant
 };
 
 } // namespace tide
