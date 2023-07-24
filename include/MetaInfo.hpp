@@ -2,6 +2,9 @@
 
 #include <InfoDict.hpp>
 #include <chrono>
+#include <string>
+
+namespace tide {
 
 class MetaInfo {
   InfoDict info;
@@ -11,4 +14,8 @@ class MetaInfo {
   std::optional<std::string> comment;
   std::optional<std::string> created_by;
   std::optional<std::string> encoding;
+
+  MetaInfo(std::string&);
 };
+
+} // namespace tide
