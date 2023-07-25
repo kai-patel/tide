@@ -39,7 +39,6 @@ MetaInfo::MetaInfo(std::string &input) {
   }
 
   if (dict.find("info") != dict.end()) {
-    // TODO set m_metainfo depending on single/multi file
     std::map<DictKey, DictValue> info_dict =
         std::get<boost::recursive_wrapper<BEncodeDict>>(dict["info"])
             .get()
