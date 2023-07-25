@@ -6,9 +6,13 @@
 namespace tide {
 
 class InfoDict {
+public:
   unsigned int piece_length = 0;
   std::string pieces;
   std::optional<bool> is_private;
+
+  InfoDict();
+  InfoDict(std::map<DictKey, DictValue> &);
 };
 
 class SingleFileInfoDict : public InfoDict {
