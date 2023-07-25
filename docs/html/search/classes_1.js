@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['metainfoexception_0',['MetaInfoException',['../classtide_1_1_meta_info_exception.html',1,'tide']]]
+  ['dict_5fparser_0',['dict_parser',['../structtide_1_1dict__parser.html',1,'tide']]]
 ];
