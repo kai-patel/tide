@@ -63,7 +63,19 @@ TEST(Parsing, ListofLists) {
 }
 
 TEST(Parsing, ListofDict) {
-  // TODO
+  std::string input = "ld3:fooi42ee5:helloe";
+
+  tide::BEncodeValue result;
+
+  bool is_parsed = result.parse(input);
+
+  ASSERT_EQ(true, is_parsed);
+
+  auto actual = std::get<tide::BEncodeList>(result.value).contents;
+  auto dict = std::get<tide::BEncodeDict>(actual[0]).dict;
+
+  EXPECT_EQ(42, std::get<tide::BEncodeInteger>(dict["foo"]));
+  EXPECT_EQ("hello", std::get<tide::BEncodeString>(actual[1]));
 }
 
 TEST(Parsing, Dictionary) {
@@ -82,9 +94,37 @@ TEST(Parsing, Dictionary) {
 }
 
 TEST(Parsing, DictofDict) {
-  // TODO
+  std::string input = "d3:bard3:fooi42eee";
+
+  tide::BEncodeValue result;
+
+  bool is_parsed = result.parse(input);
+
+  ASSERT_EQ(true, is_parsed);
+
+  auto actual = std::get<tide::BEncodeDict>(result.value).dict;
+  tide::BEncodeDict value =
+      std::get<boost::recursive_wrapper<tide::BEncodeDict>>(actual["bar"])
+          .get();
+
+  auto inner = value.dict;
+
+  EXPECT_EQ(42, std::get<tide::BEncodeInteger>(inner["foo"]));
 }
 
 TEST(Parsing, DictofList) {
-  // TODO
+  std::string input = "d3:fool3:bar3:bazee";
+
+  tide::BEncodeValue result;
+
+  bool is_parsed = result.parse(input);
+
+  ASSERT_EQ(true, is_parsed);
+
+  auto dict = std::get<tide::BEncodeDict>(result.value).dict;
+
+  auto list = std::get<tide::BEncodeList>(dict["foo"]).contents;
+
+  ASSERT_EQ("bar", std::get<tide::BEncodeString>(list[0]));
+  ASSERT_EQ("baz", std::get<tide::BEncodeString>(list[1]));
 }
